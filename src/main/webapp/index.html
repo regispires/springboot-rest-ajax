@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta charset="UTF-8">
+	<title>Home</title>
+	<link rel="stylesheet" href="css/bootstrap.min.css" />
+</head>
+<body>
+<div class="container">
+	<h1>Lista de Contatos</h1>
+	<button id="btn_contatos" type="button" class="btn btn-primary">Ver contatos</button>
+	<p id="resultado"></p>
+	<table id="tabela_contatos" class="table table-hover">
+		<thead><tr><th>Id</th><th>Nome</th><th>Email</th><th>Endereço</th></tr></thead>
+		<tbody></tbody>
+	</table>
+</div>
+<script src="js/jquery-3.2.1.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script>
+function mostra_contatos(contatos) {
+	$("#tabela_contatos tbody").hide();
+	$("#tabela_contatos tbody").empty();
+	for (var i in contatos) {
+		var c = contatos[i]
+		$("#tabela_contatos tbody").append("<tr><td>" + c.id + "</td><td>" + c.nome + "</td><td>" + c.email + "</td><td>" + c.endereco + "</td></tr>");
+	}
+	$("#tabela_contatos tbody").fadeIn("slow");
+}
+
+$(function() {
+	$("#btn_contatos").click(function() {
+		$.get("/contatos", function(data) {
+			mostra_contatos(data)
+		});
+	});
+});
+</script>
+</body>
+</html>
